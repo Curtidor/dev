@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "CommonJS",
+    "rootDir": "./",
+    "outDir": "dist",
+    "strict": true,
+    "esModuleInterop": true,
+    "baseUrl": "./",
+    "paths": {
+      "@minecraft/server": [
+        "tests/__mocks__/@minecraft/server"
+      ]
+    }
+  },
+  "include": [
+    "tests/**/*.ts"
+  ],
+  "exclude": [
+    "src"
+  ]
+}
+//npx tsc -p tsconfig.test.json
+//npx tsc-alias -p tsconfig.test.json
