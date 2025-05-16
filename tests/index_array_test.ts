@@ -1,9 +1,5 @@
-import { SparseIndexArray } from '../src/auction/stroage/auction_index';
-
-function compareArrayValues<T>(a: Array<T>, b: Array<T>): boolean {
-  if (a.length !== b.length) return false;
-  return a.every((v, i) => v === b[i]);
-}
+import { IndexArray } from '../src/auction/core/index_array';
+import { compareArrayValues } from './utils';
 
 function logTestResult(name: string, pass: boolean): void {
   if (pass) {
@@ -14,48 +10,45 @@ function logTestResult(name: string, pass: boolean): void {
 }
 
 function addTest() {
-  const iArray = new SparseIndexArray();
+  const iArray = new IndexArray();
 
   const firstIndex = iArray.push(32);
-  logTestResult("addTest[sub]", firstIndex === 0);
+  logTestResult('addTest[sub]', firstIndex === 0);
   iArray.removeAtIndex(0);
 
-  [0, 1, 2, 3].forEach(v => iArray.push(v));
+  [0, 1, 2, 3].forEach((v) => iArray.push(v));
 
   const values = new Array(...iArray.getIndexValues());
   const expected = [0, 1, 2, 3];
 
-  logTestResult("addTest", compareArrayValues(values, expected));
+  logTestResult('addTest', compareArrayValues(values, expected));
 }
 
 function removeAtIndexTest() {
-  const iArray = new SparseIndexArray();
-  [0, 1, 2].forEach(v => iArray.push(v));
+  const iArray = new IndexArray();
+  [0, 1, 2].forEach((v) => iArray.push(v));
 
   iArray.removeAtIndex(0);
 
   const values = new Array(...iArray.getIndexValues());
   const expected = [null, 1, 2];
 
-  logTestResult("removeAtIndexTest", compareArrayValues(values, expected));
+  logTestResult('removeAtIndexTest', compareArrayValues(values, expected));
 }
 
 function removeByValueTest() {
-  const iArray = new SparseIndexArray();
-  [0, 1, 2].forEach(v => iArray.push(v));
+  const iArray = new IndexArray();
+  [0, 1, 2].forEach((v) => iArray.push(v));
 
   const goodIndex = iArray.removeByValue(1); // should be 1
   const badIndex = iArray.removeByValue(12); // should be -1
 
-  logTestResult(
-    "removeByValueTest",
-    goodIndex === 1 && badIndex === -1
-  );
+  logTestResult('removeByValueTest', goodIndex === 1 && badIndex === -1);
 }
 
 function reinsertToOpenSlotTest() {
-  const iArray = new SparseIndexArray();
-  [0, 1, 2].forEach(v => iArray.push(v));
+  const iArray = new IndexArray();
+  [0, 1, 2].forEach((v) => iArray.push(v));
 
   iArray.removeAtIndex(1);
   const valuesAfterRemove = new Array(...iArray.getIndexValues());
@@ -73,11 +66,11 @@ function reinsertToOpenSlotTest() {
     openIndexLength === 0 &&
     reusedIndex === 1;
 
-  logTestResult("reinsertToOpenSlotTest", allPass);
+  logTestResult('reinsertToOpenSlotTest', allPass);
 }
 
 function boundaryTest() {
-  const iArray = new SparseIndexArray();
+  const iArray = new IndexArray();
 
   // Remove from empty
   iArray.removeAtIndex(0); // should not throw
@@ -93,11 +86,11 @@ function boundaryTest() {
 
   const allMatch = compareArrayValues(values, expected);
 
-  logTestResult("boundaryTest", allMatch);
+  logTestResult('boundaryTest', allMatch);
 }
 
 function stressTest() {
-  const iArray = new SparseIndexArray();
+  const iArray = new IndexArray();
   let ok = true;
 
   for (let round = 0; round < 100; round++) {
@@ -123,13 +116,14 @@ function stressTest() {
     }
   }
 
-  logTestResult("stressTest", ok);
+  logTestResult('stressTest', ok);
 }
 
-
-addTest();
-removeAtIndexTest();
-removeByValueTest();
-reinsertToOpenSlotTest();
-boundaryTest();
-stressTest();
+export function testIndexArray() {
+  addTest();
+  removeAtIndexTest();
+  removeByValueTest();
+  reinsertToOpenSlotTest();
+  boundaryTest();
+  stressTest();
+}
