@@ -1,8 +1,8 @@
 import { categories, Category } from "../../auction/types/enums";
-import { SparseIndexArray } from "./sparse_index_array";
+import { IndexArray } from "./index_array";
 
 export class CategoryTable {
-  private readonly _catergoryTable: Map<string, SparseIndexArray>;
+  private readonly _catergoryTable: Map<string, IndexArray>;
 
   constructor() {
     this._catergoryTable = CategoryTable._createCategoryMaping();
@@ -24,10 +24,10 @@ export class CategoryTable {
     return size;
   }
 
-  public getIndexArray(category: Category): SparseIndexArray {
+  public getIndexArray(category: Category): IndexArray {
     let indexArray = this._catergoryTable.get(category);
     if (indexArray === undefined) {
-      indexArray = new SparseIndexArray();
+      indexArray = new IndexArray();
     }
 
     this._catergoryTable.set(category, indexArray);
@@ -35,11 +35,11 @@ export class CategoryTable {
     return indexArray;
   }
 
-  private static _createCategoryMaping(): Map<string, SparseIndexArray> {
-    const map: Map<string, SparseIndexArray> = new Map();
+  private static _createCategoryMaping(): Map<string, IndexArray> {
+    const map: Map<string, IndexArray> = new Map();
 
     for (const cat of categories) {
-      map.set(cat, new SparseIndexArray());
+      map.set(cat, new IndexArray());
     }
 
     return map;
