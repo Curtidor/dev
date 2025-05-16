@@ -61,7 +61,7 @@ export class AuctionService {
 
     const indexSet = this._gatherMatchingIndexes(options);
 
-    let listings = this._resolveListings(indexSet);
+    let listings = this._resolveListings(indexSet, 0, options.pageOptions.maxListings ?? 0); // shouuld never be 0
 
     listings = this._filterListingsByPrice(listings, options.price);
 
@@ -89,7 +89,7 @@ export class AuctionService {
   private _gatherMatchingIndexes(options: Required<QueryOptions>): Set<number> {
     const indexes = new Set<number>();
 
-    if (options.category) {
+    if (options.category && options.category !== Category.Default) {
       for (const idx of this._auctionStore.getListingFromCategory(
         options.category,
         options.pageOptions.offset,
@@ -108,9 +108,9 @@ export class AuctionService {
     return indexes;
   }
 
-  private _resolveListings(indexes: Set<number>): AuctionListing[] {
+  private _resolveListings(indexes: Set<number>, start: number, offset: number): AuctionListing[] {
     if (indexes.size === 0) {
-      return this._auctionStore.getListings(0, getSetting('maxPageListings'));
+      return this._auctionStore.getListings(start, offset);
     }
 
     return Array.from(indexes)
