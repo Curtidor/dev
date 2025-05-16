@@ -5,6 +5,12 @@ export interface AuctionPlayer{
   sellerId: string;
 }
 
+export interface SellInput{
+   price: number;
+    hours: number;
+    minutes: number;
+}
+
 /**
  * Pagination control for listings queries.
  */
