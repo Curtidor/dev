@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const auction_db_test_1 = require("./auction_db_test");
+const auction_service_test_1 = require("./auction_service_test");
+const auction_store_test_1 = require("./auction_store_test");
+const index_array_test_1 = require("./index_array_test");
+console.log('INDEX ARRAY TEST');
+(0, index_array_test_1.testIndexArray)();
+console.log('AUCTION DB TEST');
+(0, auction_db_test_1.testDB)();
+console.log('AUCTION STORE TEST');
+(0, auction_store_test_1.testAuctionStore)();
+console.log('AUCTION SERVICE TEST');
+(0, auction_service_test_1.testAuctionService)();

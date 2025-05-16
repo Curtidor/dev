@@ -1,15 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AuctionListing = exports.categories = exports.Category = void 0;
-var Category;
-(function (Category) {
-    Category["Default"] = "default";
-    Category["Armor"] = "armor";
-    Category["Tools"] = "tools";
-    Category["Items"] = "items";
-    Category["Blocks"] = "blocks";
-})(Category || (exports.Category = Category = {}));
-exports.categories = Object.values(Category).filter((cat) => cat !== Category.Default);
+exports.AuctionListing = void 0;
+const enums_1 = require("../auction/types/enums");
 /**
  * @class AuctionListing
  * Represents a listing in the auction house, including the item being sold,
@@ -72,7 +64,7 @@ class AuctionListing {
         const sellerId = sellerIdLine.slice('§0SellerID:'.length);
         if (isNaN(price) || isNaN(expiresAtMs))
             return null;
-        return new AuctionListing(item, price, new Date(expiresAtMs), sellerId, sellerName, Object.keys(Category).find((c) => c === category));
+        return new AuctionListing(item, price, new Date(expiresAtMs), sellerId, sellerName, Object.keys(enums_1.Category).find((c) => c === category));
     }
     /**
      * Serializes the auction listing into lore lines.

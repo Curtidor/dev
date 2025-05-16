@@ -51,7 +51,6 @@ exports.world = {
         this._dynamicProperties = {};
     }
 };
-;
 class Entity {
     constructor(id) {
         this.id = id;
@@ -69,7 +68,7 @@ class Entity {
 }
 exports.Entity = Entity;
 class Player extends Entity {
-    constructor(name = "Player", id = "uuid-1234") {
+    constructor(name = 'Player', id = 'uuid-1234') {
         super(id);
         this.name = name;
         this.id = id;
@@ -86,4 +85,3 @@ class Enchantment {
     }
 }
 exports.Enchantment = Enchantment;
-;
