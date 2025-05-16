@@ -1,8 +1,10 @@
 import { Player } from '@minecraft/server';
+
 import { ModalFormData, ModalFormResponse } from '@minecraft/server-ui';
-import { AuctionListing, Category } from '../models/auction_listing';
-import { SellInput } from '../models/sell_input';
+import { AuctionListing } from '../models/auction_listing';
+import { SellInput } from './types/types';
 import { AUCTIONSERVICE } from './utils/__globals__';
+import { Category } from './types/enums';
 
 /**
  * Displays the UI to enter sell price and expiry.
