@@ -1,4 +1,4 @@
-import { AuctionListing } from "models/auction_listing";
+import { AuctionListing } from "../../models/auction_listing";
 import { AuctionDB } from "../../auction/data/auction_db";
 import { CategoryTable } from "./category_table";
 import { categories, Category } from "../../auction/types/enums";
